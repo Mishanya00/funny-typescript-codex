@@ -1,3 +1,5 @@
+import '../styles/pure.css';
+
 type PageDefinition = {
   id: string;
   title: string;

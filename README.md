@@ -1,17 +1,27 @@
 # funny-typescript-codex
 
-Repository for making fun TypeScript components for testing Codex possibilities.
+Repository for experimenting with small TypeScript UI ideas in two variants: a pure TypeScript version and a React + TypeScript version.
 
-## Current app
+## What is included
 
-The project is a small pure TypeScript single-page app. It starts with a main menu of page cards. Selecting a card replaces the current view with that page, and every page includes a back button for returning to the menu.
+Both variants share the same experience:
+- a main menu with page cards,
+- a page transition when a card is selected,
+- and a back button that returns to the menu.
 
-The first page is **Random Color Buttons**: it displays 10 buttons with different random colors. Pressing any button changes only that button to another random color.
+The first page in each version is **Random Color Buttons**: it shows 10 buttons with random pastel colors, and clicking a button updates just that button.
+
+## Project structure
+
+- [src/pure-ts](src/pure-ts) contains the original pure TypeScript implementation.
+- [src/react](src/react) contains the React + TypeScript implementation.
 
 ## Scripts
 
-- `npm run dev` starts the Vite development server and serves the TypeScript source entry.
-- `npm run check` type-checks the TypeScript source without emitting JavaScript.
+- `npm install` installs the dependencies for both variants.
+- `npm run dev` starts the pure TypeScript app at the root entry.
+- `npm run dev:react` starts the React variant at `/react.html`.
+- `npm run check` type-checks the source without emitting JavaScript.
 - `npm run build` type-checks the source and creates a production build in `dist/`.
 - `npm run preview` serves the production build locally.
 
