@@ -22,7 +22,14 @@ const colorPage: PageDefinition = {
   render: renderColorButtonsPage,
 };
 
-const pages: PageDefinition[] = [colorPage];
+const movingButtonPage: PageDefinition = {
+  id: 'moving-color-button',
+  title: 'Moving Color Button',
+  description: 'Click the button to send it to a random screen position and give it a new color.',
+  render: renderMovingColorButtonPage,
+};
+
+const pages: PageDefinition[] = [colorPage, movingButtonPage];
 
 renderMainMenu();
 
@@ -123,6 +130,57 @@ function renderColorButtonsPage(): HTMLElement {
   return page;
 }
 
+
+function renderMovingColorButtonPage(): HTMLElement {
+  const page = document.createElement('main');
+  page.className = 'moving-page';
+
+  const nav = document.createElement('nav');
+  nav.className = 'floating-page-nav';
+  nav.setAttribute('aria-label', 'Page navigation');
+
+  const backButton = document.createElement('button');
+  backButton.className = 'back-button';
+  backButton.type = 'button';
+  backButton.textContent = '← Back to menu';
+  backButton.addEventListener('click', renderMainMenu);
+  nav.append(backButton);
+
+  const header = document.createElement('section');
+  header.className = 'floating-page-header';
+
+  const heading = document.createElement('h1');
+  heading.textContent = movingButtonPage.title;
+
+  const description = document.createElement('p');
+  description.textContent = movingButtonPage.description;
+
+  header.append(heading, description);
+
+  const movingButton = document.createElement('button');
+  movingButton.className = 'moving-color-button';
+  movingButton.type = 'button';
+  movingButton.textContent = 'Catch me';
+
+  const moveAndRecolorButton = () => {
+    const buttonRect = movingButton.getBoundingClientRect();
+    const position = getRandomViewportPosition(buttonRect.width, buttonRect.height);
+    const color = getRandomHslColor();
+
+    movingButton.style.left = `${position.x}px`;
+    movingButton.style.top = `${position.y}px`;
+    movingButton.style.backgroundColor = color.background;
+    movingButton.style.color = color.text;
+  };
+
+  movingButton.addEventListener('click', moveAndRecolorButton);
+  page.append(nav, header, movingButton);
+
+  requestAnimationFrame(moveAndRecolorButton);
+
+  return page;
+}
+
 function createColorButton(index: number): HTMLButtonElement {
   const button = document.createElement('button');
   button.className = 'color-button';
@@ -152,6 +210,17 @@ function getRandomHslColor(): { background: string; text: string } {
   return {
     background: `hsl(${hue} ${saturation}% ${lightness}%)`,
     text,
+  };
+}
+
+function getRandomViewportPosition(buttonWidth = 140, buttonHeight = 64): { x: number; y: number } {
+  const safePadding = 16;
+  const maxX = Math.max(safePadding, window.innerWidth - buttonWidth - safePadding);
+  const maxY = Math.max(safePadding, window.innerHeight - buttonHeight - safePadding);
+
+  return {
+    x: getRandomInteger(safePadding, maxX),
+    y: getRandomInteger(safePadding, maxY),
   };
 }
 
