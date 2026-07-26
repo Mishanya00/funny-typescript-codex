@@ -9,12 +9,17 @@ Both variants share the same experience:
 - a page transition when a card is selected,
 - and a back button that returns to the menu.
 
-The first page in each version is **Random Color Buttons**: it shows 10 buttons with random pastel colors, and clicking a button updates just that button.
+Current pages:
+- **Random Color Buttons** shows 10 buttons with random pastel colors, and clicking a button updates just that button.
+- **Moving Color Button** moves a button to a random screen position and gives it a new color on each click.
 
 ## Project structure
 
 - [src/pure-ts](src/pure-ts) contains the original pure TypeScript implementation.
 - [src/react](src/react) contains the React + TypeScript implementation.
+- Each implementation keeps reusable UI in `components/`, page modules in `pages/<page-name>/`, and global styles in `styles/`.
+- Page-specific styles live next to the page that imports them.
+- [src/shared](src/shared) contains framework-agnostic utilities reused by both implementations.
 
 ## Scripts
 
