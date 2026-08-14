@@ -10,7 +10,17 @@ if (!appElement) {
 }
 
 const app = appElement;
-const pages = [randomColorButtonsPage, movingColorButtonPage];
+const pixelColorButtonsPage = {
+  id: 'pixel-color-buttons',
+  title: 'Pixel Color Buttons',
+  description: 'Open the React pixel-art version of the colored buttons.',
+  render: () => {
+    window.location.assign('/react.html?page=pixel-color-buttons');
+    return document.createElement('main');
+  },
+};
+
+const pages = [randomColorButtonsPage, movingColorButtonPage, pixelColorButtonsPage];
 
 function renderMainMenu(): void {
   app.replaceChildren(createMainMenu({ pages, onSelect: renderPage }));
